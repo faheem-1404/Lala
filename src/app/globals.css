@@ -1,0 +1,361 @@
+@import "tailwindcss";
+@import "@fontsource-variable/playfair-display/index.css";
+@import "@fontsource-variable/playfair-display/wght-italic.css";
+@import "@fontsource-variable/inter/index.css";
+
+@theme {
+  --color-burgundy: #4a0d17;
+  --color-burgundy-deep: #2a060d;
+  --color-maroon: #861e2c;
+  --color-gold: #d4af37;
+  --color-gold-soft: #e9cf7a;
+  --color-cream: #f8e6d1;
+  --color-ivory: #fbf3e8;
+  --color-milk-brown: #a77a4e;
+  --color-pistachio: #3f5c29;
+  --color-cocoa: #1b0a07;
+  --color-cocoa-soft: #2e1510;
+  --color-non-veg: #b3261e;
+  --font-display: "Playfair Display Variable", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+:root {
+  color-scheme: dark;
+  --nav-h: 72px;
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-burgundy-deep);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-burgundy-deep);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ——— Editorial type scale ——— */
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.75rem, 8.4vw, 9rem);
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.25rem, 6vw, 6.5rem);
+}
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  font-size: clamp(1.75rem, 3.6vw, 3.5rem);
+}
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  font-weight: 500;
+}
+.lede {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  line-height: 1.5;
+  color: color-mix(in oklab, var(--color-cream) 82%, transparent);
+  font-weight: 400;
+}
+
+/* ——— Film grain overlay ——— */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: soft-light;
+  animation: grain 1.2s steps(4) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, 1%); }
+  50% { transform: translate(1%, -2%); }
+  75% { transform: translate(-1%, -1%); }
+  100% { transform: translate(2%, 2%); }
+}
+
+/* ——— Hairline rules ——— */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-gold) 70%, transparent), transparent);
+}
+
+/* ——— Link sweep ——— */
+.link-sweep {
+  position: relative;
+  text-decoration: none;
+}
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--ease-expo);
+}
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ——— Buttons: two styles only ——— */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 60%, transparent);
+  color: var(--color-cream);
+  background: transparent;
+  transition: background 0.4s var(--ease-soft), color 0.4s var(--ease-soft), border-color 0.4s, transform 0.4s var(--ease-expo);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-gold);
+  color: var(--color-burgundy-deep);
+  border-color: var(--color-gold);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-solid {
+  background: var(--color-cream);
+  color: var(--color-burgundy-deep);
+  border-color: var(--color-cream);
+}
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+}
+.btn-light {
+  border-color: color-mix(in oklab, var(--color-burgundy) 35%, transparent);
+  color: var(--color-burgundy-deep);
+}
+.btn-light:hover,
+.btn-light:focus-visible {
+  background: var(--color-burgundy-deep);
+  color: var(--color-cream);
+  border-color: var(--color-burgundy-deep);
+}
+
+/* ——— Reveal utilities (driven by GSAP; initial state) ——— */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .grain::after {
+    animation: none;
+  }
+}
+
+/* ——— Custom cursor (desktop pointer only) ——— */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 999px;
+    background: var(--color-gold);
+    pointer-events: none;
+    z-index: 100;
+    mix-blend-mode: difference;
+    transition: width 0.3s var(--ease-expo), height 0.3s var(--ease-expo), margin 0.3s var(--ease-expo), opacity 0.3s;
+  }
+  .cursor-dot.is-hover {
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    opacity: 0.6;
+  }
+}
+
+/* ——— Scrollbar (webkit) ——— */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-burgundy-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-milk-brown) 60%, transparent);
+  border-radius: 10px;
+  border: 2px solid var(--color-burgundy-deep);
+}
+
+/* ——— Focus ——— */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes scrollhint {
+  0% { transform: translateY(-100%); }
+  60%, 100% { transform: translateY(200%); }
+}
+
+/* ——— Editorial system (post-WebGL) ——— */
+.tone-burgundy { background: var(--color-burgundy-deep); color: var(--color-cream); --stroke: rgba(248, 230, 209, 0.22); }
+.tone-maroon { background: var(--color-maroon); color: var(--color-cream); --stroke: rgba(248, 230, 209, 0.28); }
+.tone-cocoa { background: var(--color-cocoa); color: var(--color-cream); --stroke: rgba(248, 230, 209, 0.2); }
+.tone-ivory { background: var(--color-ivory); color: var(--color-burgundy-deep); --stroke: rgba(42, 6, 13, 0.18); }
+
+.display-hero {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  font-size: clamp(3rem, 10.5vw, 11.5rem);
+}
+.display-number {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  font-size: clamp(7rem, 20vw, 20rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--stroke, rgba(248, 230, 209, 0.22));
+  user-select: none;
+}
+.vertical-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.ink-rule { height: 1px; background: color-mix(in oklab, currentColor 18%, transparent); }
+
+/* menu rows: hairlines, not boxes */
+.menu-row {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr auto;
+  column-gap: 1rem;
+  align-items: baseline;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+}
+.menu-row:last-child { border-bottom: 0; }
+.menu-row .leader {
+  flex: 1;
+  margin: 0 0.75rem;
+  border-bottom: 1px dotted color-mix(in oklab, currentColor 30%, transparent);
+  transform: translateY(-0.35em);
+  min-width: 1.5rem;
+}
+.diet-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  color: var(--color-pistachio);
+  vertical-align: middle;
+}
+.diet-mark::after { content: ""; width: 0.38rem; height: 0.38rem; border-radius: 999px; background: currentColor; }
+.diet-mark.non-veg { color: var(--color-non-veg); }
+.diet-mark.non-veg::after { border-radius: 0; width: 0; height: 0; background: none; border-left: 0.22rem solid transparent; border-right: 0.22rem solid transparent; border-bottom: 0.38rem solid currentColor; }
+
+/* image masks */
+.mask-reveal { clip-path: inset(0 0 100% 0); }
+.mask-reveal.is-in { clip-path: inset(0 0 0 0); transition: clip-path 1.4s var(--ease-expo); }
+.mask-reveal-x { clip-path: inset(0 100% 0 0); }
+.mask-reveal-x.is-in { clip-path: inset(0 0 0 0); transition: clip-path 1.4s var(--ease-expo); }
+
+/* marquee */
+.marquee { display: flex; overflow: hidden; white-space: nowrap; }
+.marquee > span { display: inline-block; padding-right: 3rem; animation: marquee 38s linear infinite; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+/* tinted map embed */
+.map-tint { filter: grayscale(1) invert(0.92) sepia(0.55) hue-rotate(-28deg) saturate(1.4) brightness(0.72) contrast(1.05); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-reveal, .mask-reveal-x { clip-path: none; }
+  .marquee > span { animation: none; }
+}

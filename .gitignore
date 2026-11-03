@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.DS_Store
+*.log
+.research/*.json
+.env*
+
+# research artefacts and raw originals (regenerate with npm run assets:fetch)
+.research/
+public/assets/raw/
